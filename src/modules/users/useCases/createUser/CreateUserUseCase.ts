@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -10,7 +11,14 @@ class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ email, name }: IRequest): User {
-    // Complete aqui
+
+    const emailAlreadyExits = this.usersRepository.findByEmail(email)
+
+    if(emailAlreadyExits){
+      throw new Error('Email already exists!')
+    }
+
+   return this.usersRepository.create({name, email})
   }
 }
 

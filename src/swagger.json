@@ -1,0 +1,199 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"Api Register Users",
+        "description": "This is an API CRUD Users",
+        "version":"1.0.0",
+        "contact":{
+            "email":"danilo@i-nilo.com.br"
+        }
+    },
+    "paths":{
+        "/users":{
+            "post":{
+                "tags":["Users"],
+                "summary":"Create a users",
+                "description":"Created new users",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "name": {
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    }
+                                },
+                                "example":{
+                                    "name":"User name example",
+                                    "email":"user@example.com.br"
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Created"
+                    },
+                    "500":{
+                        "description":"User already exist!"
+                    }
+                    
+                }
+            },
+            "get":{
+                "tags":["List Users"],
+                "summary":"List All Users",
+                "description":"List All Users",
+                "parameters":[
+                    {
+                        "name":"user_id",
+                        "in":"header",
+                        "description":"Id in user",
+                        "required":"true",
+                        "schema":{
+                            "type":"string",
+                            "format":"uuid"
+                        }
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties":{
+                                            "id":{
+                                                "type":"string"
+                                            },
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "created_at":{
+                                                "type":"Date"
+                                            },
+                                            "updated_at":{
+                                                "type":"Date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                    "description":"Error"
+                        
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch":{
+                "tags":["Turn Admin"],
+                "summary":"Turn admin user",
+                "description":"Turned users admin",
+                "parameters":[
+                    {
+                        "name":"user_id",
+                        "in":"path",
+                        "description":"Id in user",
+                        "required":"true",
+                        "schema":{
+                            "type":"string",
+                            "format":"uuid"
+                        }
+                    }
+                ],
+                "requestParams":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "user_id": {
+                                        "type":"string"
+                                    }
+                                },
+                                "example":{
+                                    "user_id":"uuid"
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Assing admin users"
+                    },
+                    "404":{
+                        "description":"User not found!"
+                    }
+                    
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags":["Show User Profile"],
+                "summary":"Turn admin user",
+                "description":"Turned users admin",
+                "parameters":[
+                    {
+                        "name":"user_id",
+                        "in":"path",
+                        "description":"Id in user",
+                        "required":"true",
+                        "schema":{
+                            "type":"string",
+                            "format":"uuid"
+                        }
+                    }
+                ],
+                "requestParams":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "user_id": {
+                                        "type":"string"
+                                    }
+                                },
+                                "example":{
+                                    "user_id":"uuid"
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Assing admin users"
+                    },
+                    "404":{
+                        "description":"User not found!"
+                    }
+                    
+                }
+            }
+        }
+    }
+}

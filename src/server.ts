@@ -1,3 +1,13 @@
+/* eslint-disable import-helpers/order-imports */
+/* eslint-disable import/order */
+/* eslint-disable prettier/prettier */
 import { app } from ".";
 
-app.listen(3333, () => console.log("Server is running!"));
+import swaggerUi from 'swagger-ui-express'
+
+import swaggerFile from './swagger.json';
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
+app.listen(3333, () => console.log("Server is running!")); 
